@@ -46,7 +46,7 @@ option(VELOX_ENABLE_BENCHMARKS "Build velox top level benchmarks." OFF)
 option(VELOX_ENABLE_BENCHMARKS_BASIC "Build velox basic benchmarks." OFF)
 option(VELOX_ENABLE_S3 "Build S3 Connector" OFF)
 option(VELOX_ENABLE_HDFS "Build Hdfs Connector" OFF)
-option(VELOX_ENABLE_PARQUET "Enable Parquet support" OFF)
+option(VELOX_ENABLE_PARQUET "Enable Parquet support" ON)
 option(VELOX_BUILD_TEST_UTILS "Enable Velox test utilities" OFF)
 
 if(${VELOX_BUILD_MINIMAL})
@@ -119,6 +119,11 @@ if(VELOX_ENABLE_HDFS)
 endif()
 
 if(VELOX_ENABLE_PARQUET)
+  find_library(
+    LIBTHRIFT
+    NAMES libthrift.dylib libthrift.so
+    REQUIRED
+  )
   add_definitions(-DVELOX_ENABLE_PARQUET)
 endif()
 
